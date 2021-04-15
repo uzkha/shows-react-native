@@ -7,6 +7,7 @@ import ShowsScreen from "./src/screens/Shows";
 import NewShowScreen from "./src/screens/NewShow";
 import { AntDesign, Feather, Ionicons } from '@expo/vector-icons'; 
 import { AppContext, appReducer, initialState } from "./src/context/AppContext";
+import LoginScreen from "./src/screens/Login";
 
 
 
@@ -44,13 +45,17 @@ function App() {
   return (
 
     <AppContext.Provider value={{state,dispatch}}>
-      <NavigationContainer>
-        <TabNav.Navigator tabBar={props=> <TabBar {...props}/>}>
-          <TabNav.Screen name={"Home"} component={HomeScreen}/>
-          <TabNav.Screen name={"Shows"} component={ShowsScreen}/>
-          <TabNav.Screen name={"NewShow"} component={NewShowScreen}/>
-        </TabNav.Navigator>
-      </NavigationContainer>
+
+      {state.token?
+        <NavigationContainer>
+          <TabNav.Navigator tabBar={props=> <TabBar {...props}/>}>
+            <TabNav.Screen name={"Home"} component={HomeScreen}/>
+            <TabNav.Screen name={"Shows"} component={ShowsScreen}/>
+            <TabNav.Screen name={"NewShow"} component={NewShowScreen}/>
+          </TabNav.Navigator>
+        </NavigationContainer>
+        :
+        <LoginScreen />}
     </AppContext.Provider>
   )
 }
